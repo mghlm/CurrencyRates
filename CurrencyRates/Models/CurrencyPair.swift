@@ -9,5 +9,6 @@
 import Foundation
 
 struct CurrencyPair: Decodable {
-    
+    var mainCurrency: Currency
+    var secondaryCurrency: Currency
 }

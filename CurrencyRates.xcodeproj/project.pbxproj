@@ -18,6 +18,11 @@
 		CC91F83622EB7241007CC789 /* HomeScreenDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F83522EB7241007CC789 /* HomeScreenDataSource.swift */; };
 		CC91F83922EB736D007CC789 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F83822EB736D007CC789 /* Currency.swift */; };
 		CC91F83B22EB7375007CC789 /* CurrencyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F83A22EB7375007CC789 /* CurrencyPair.swift */; };
+		CC91F84B22EC8EF2007CC789 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F84A22EC8EF2007CC789 /* URLSession+Extensions.swift */; };
+		CC91F84D22EC8EFE007CC789 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */; };
+		CC91F85022ECA951007CC789 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F84F22ECA951007CC789 /* Router.swift */; };
+		CC91F85222ECAB50007CC789 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85122ECAB50007CC789 /* APIService.swift */; };
+		CC91F85422ECCCD2007CC789 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85322ECCCD2007CC789 /* Transformer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,11 @@
 		CC91F83522EB7241007CC789 /* HomeScreenDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenDataSource.swift; sourceTree = "<group>"; };
 		CC91F83822EB736D007CC789 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		CC91F83A22EB7375007CC789 /* CurrencyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPair.swift; sourceTree = "<group>"; };
+		CC91F84A22EC8EF2007CC789 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
+		CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		CC91F84F22ECA951007CC789 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		CC91F85122ECAB50007CC789 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		CC91F85322ECCCD2007CC789 /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +115,11 @@
 		CC91F80122EB31CF007CC789 /* CurrencyRates */ = {
 			isa = PBXGroup;
 			children = (
+				CC91F84622EC882E007CC789 /* Networking2 */,
 				CC91F83722EB7362007CC789 /* Models */,
 				CC91F83122EB4D04007CC789 /* Resources */,
-				CC91F83022EB4CFD007CC789 /* Scenes */,
+				CC91F83022EB4CFD007CC789 /* Screens */,
+				CC91F84722EC8C50007CC789 /* Extensions */,
 			);
 			path = CurrencyRates;
 			sourceTree = "<group>";
@@ -130,12 +142,13 @@
 			path = CurrencyRatesUITests;
 			sourceTree = "<group>";
 		};
-		CC91F83022EB4CFD007CC789 /* Scenes */ = {
+		CC91F83022EB4CFD007CC789 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CC91F84522EB7EFE007CC789 /* CurrencyPicker */,
 				CC91F83222EB4D28007CC789 /* Home */,
 			);
-			path = Scenes;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		CC91F83122EB4D04007CC789 /* Resources */ = {
@@ -167,6 +180,32 @@
 				CC91F83A22EB7375007CC789 /* CurrencyPair.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CC91F84522EB7EFE007CC789 /* CurrencyPicker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CurrencyPicker;
+			sourceTree = "<group>";
+		};
+		CC91F84622EC882E007CC789 /* Networking2 */ = {
+			isa = PBXGroup;
+			children = (
+				CC91F84F22ECA951007CC789 /* Router.swift */,
+				CC91F85122ECAB50007CC789 /* APIService.swift */,
+				CC91F85322ECCCD2007CC789 /* Transformer.swift */,
+			);
+			path = Networking2;
+			sourceTree = "<group>";
+		};
+		CC91F84722EC8C50007CC789 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CC91F84A22EC8EF2007CC789 /* URLSession+Extensions.swift */,
+				CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,9 +339,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC91F85422ECCCD2007CC789 /* Transformer.swift in Sources */,
+				CC91F85222ECAB50007CC789 /* APIService.swift in Sources */,
 				CC91F83422EB7167007CC789 /* HomeScreenVIewModel.swift in Sources */,
 				CC91F83922EB736D007CC789 /* Currency.swift in Sources */,
+				CC91F84D22EC8EFE007CC789 /* UIView+Extensions.swift in Sources */,
 				CC91F83622EB7241007CC789 /* HomeScreenDataSource.swift in Sources */,
+				CC91F84B22EC8EF2007CC789 /* URLSession+Extensions.swift in Sources */,
+				CC91F85022ECA951007CC789 /* Router.swift in Sources */,
 				CC91F80522EB31CF007CC789 /* HomeScreenViewController.swift in Sources */,
 				CC91F83B22EB7375007CC789 /* CurrencyPair.swift in Sources */,
 				CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */,
