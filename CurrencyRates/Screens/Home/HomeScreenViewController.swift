@@ -51,6 +51,7 @@ final class HomeScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupCallBacks()
     }
 
     // MARK: - Private methods
@@ -69,6 +70,12 @@ final class HomeScreenViewController: UIViewController {
     private func setupNavbar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Currency pairs"
+    }
+    
+    private func setupCallBacks() {
+        viewModel.dataSource.didUpdateData = { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     private func setupConstraints() {

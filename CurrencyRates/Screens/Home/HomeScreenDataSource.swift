@@ -11,18 +11,25 @@ import UIKit
 
 final class HomeScreenDataSource: NSObject {
     
+    // MARK: - Public properties
+    
+    var didUpdateData: (() -> Void)?
+    
     var currencies: [Currency]?
-    var currencyPairs: [CurrencyPair]?
+    var currencyPairs = [CurrencyPair]()
     
 }
 
 extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencyPairs?.count ?? 0
+        return currencyPairs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let currencyPair = currencyPairs[indexPath.row]
+        cell.textLabel?.text = "\(currencyPair.mainCurrency) --- \(currencyPair.secondaryCurrency)"
+        
         return cell
     }
     

@@ -28,6 +28,8 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     // MARK: - Public methods
     
+    // MARK: - Private methods
+    
 }
 
 // MARK: - Extensions
@@ -39,6 +41,11 @@ extension HomeScreenViewModel {
         let currencyPickerDataSource = CurrencyPickerDataSource()
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
         let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
+        currencyPickerViewModel.didDismissWithCurrencies = { [weak self] currencies in
+            let currencyPair = CurrencyPair(mainCurrency: currencies[0], secondaryCurrency: currencies[1])
+            self?.dataSource.currencyPairs.append(currencyPair)
+            self?.dataSource.didUpdateData?()
+        }
         let presentedNavcontroller = UINavigationController(rootViewController: currencyPickerViewController)
         navController.present(presentedNavcontroller, animated: true, completion: nil)
     }

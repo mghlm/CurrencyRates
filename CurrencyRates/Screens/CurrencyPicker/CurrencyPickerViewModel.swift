@@ -41,7 +41,6 @@ final class CurrencyPickerViewModel: CurrencyPickerViewModelType {
             dismissToHomeScreen(in: navController, with: currencies)
         }
     }
-    
 }
 
 extension CurrencyPickerViewModel {
@@ -51,6 +50,7 @@ extension CurrencyPickerViewModel {
         let currencyPickerDataSource = CurrencyPickerDataSource()
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
         let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
+        currencyPickerViewModel.didDismissWithCurrencies = didDismissWithCurrencies
         currencyPickerViewModel.currencies = currencies
         navController.pushViewController(currencyPickerViewController, animated: true)
     }
