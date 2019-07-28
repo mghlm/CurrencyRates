@@ -1,5 +1,5 @@
 //
-//  Router.swift
+//  Endpoint.swift
 //  CurrencyRates
 //
 //  Created by Magnus Holm on 27/07/2019.
@@ -41,7 +41,7 @@ enum Endpoint {
     
     var parameters: [URLQueryItem] {
         switch self {
-        case .getCurrencyPairs(currencyPairs: let pairs):
+        case .getCurrencyPairs(let pairs):
             return pairs.map { URLQueryItem(name: "pair", value: $0) }
         }
     }

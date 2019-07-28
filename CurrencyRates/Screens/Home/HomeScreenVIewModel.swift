@@ -6,10 +6,11 @@
 //  Copyright © 2019 Magnus Holm. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol HomeScreenViewModelType {
     var dataSource: HomeScreenDataSource! { get }
+    func didTapAddCurrencies(with navController: UINavigationController)
 }
 
 final class HomeScreenViewModel: HomeScreenViewModelType {
@@ -22,6 +23,24 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     init(dataSource: HomeScreenDataSource) {
         self.dataSource = dataSource
+        
     }
     
+    // MARK: - Public methods
+    
 }
+
+// MARK: - Extensions
+
+extension HomeScreenViewModel {
+    
+    // Navigation
+    func didTapAddCurrencies(with navController: UINavigationController) {
+        let currencyPickerDataSource = CurrencyPickerDataSource()
+        let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
+        let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
+        let presentedNavcontroller = UINavigationController(rootViewController: currencyPickerViewController)
+        navController.present(presentedNavcontroller, animated: true, completion: nil)
+    }
+}
+
