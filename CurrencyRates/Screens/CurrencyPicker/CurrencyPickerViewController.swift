@@ -57,7 +57,7 @@ final class CurrencyPickerViewController: UIViewController {
     private func setupCallbacks() {
         viewModel.dataSource.didSelectCurrency = { [weak self] currency in
             guard let navController = self?.navigationController else { return }
-            self?.viewModel.currencies.append(currency)
+            self?.viewModel.selectedCurrencies.append(currency)
             self?.viewModel.didSelectCurrency(in: navController)
         }
     }

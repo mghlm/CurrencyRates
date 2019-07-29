@@ -11,4 +11,5 @@ import Foundation
 struct CurrencyPair: Decodable {
     var mainCurrency: String
     var secondaryCurrency: String
+    var rate: Double?
 }

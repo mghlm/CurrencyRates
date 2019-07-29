@@ -74,7 +74,9 @@ final class HomeScreenViewController: UIViewController {
     
     private func setupCallBacks() {
         viewModel.dataSource.didUpdateData = { [weak self] in
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
     }
     

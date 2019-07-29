@@ -10,7 +10,7 @@ import UIKit
 
 protocol CurrencyPickerViewModelType {
     var dataSource: CurrencyPickerDataSource! { get }
-    var currencies: [String] { get set }
+    var selectedCurrencies: [String] { get set }
     func didSelectCurrency(in navController: UINavigationController)
     var didDismissWithCurrencies: (([String]) -> ())? { get set }
 }
@@ -19,7 +19,7 @@ final class CurrencyPickerViewModel: CurrencyPickerViewModelType {
     
     // MARK: - Public properties
     
-    var currencies = [String]()
+    var selectedCurrencies = [String]()
     var didDismissWithCurrencies: (([String]) -> ())?
     
     // MARK: - Dependencies
@@ -35,10 +35,10 @@ final class CurrencyPickerViewModel: CurrencyPickerViewModelType {
     // MARK: - Private methods
     
     func didSelectCurrency(in navController: UINavigationController) {
-        if currencies.count < 2 {
-            pushToCurrencyPickerScreen(in: navController, with: currencies)
+        if selectedCurrencies.count < 2 {
+            pushToCurrencyPickerScreen(in: navController, with: selectedCurrencies)
         } else {
-            dismissToHomeScreen(in: navController, with: currencies)
+            dismissToHomeScreen(in: navController, with: selectedCurrencies)
         }
     }
 }
@@ -51,13 +51,13 @@ extension CurrencyPickerViewModel {
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
         let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         currencyPickerViewModel.didDismissWithCurrencies = didDismissWithCurrencies
-        currencyPickerViewModel.currencies = currencies
+        currencyPickerViewModel.selectedCurrencies = selectedCurrencies
         navController.pushViewController(currencyPickerViewController, animated: true)
     }
     
-    private func dismissToHomeScreen(in navController: UINavigationController, with currencies: [String]) {
+    private func dismissToHomeScreen(in navController: UINavigationController, with selectedCurrencies: [String]) {
         navController.dismiss(animated: true) {
-            self.didDismissWithCurrencies?(currencies)
+            self.didDismissWithCurrencies?(selectedCurrencies)
         }
     }
 }

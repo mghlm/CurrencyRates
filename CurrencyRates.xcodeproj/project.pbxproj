@@ -26,6 +26,7 @@
 		CC91F85622ECD1F5007CC789 /* CurrencyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */; };
 		CC91F85822ECD206007CC789 /* CurrencyPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */; };
 		CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */; };
+		CC91F86022EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85F22EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewController.swift; sourceTree = "<group>"; };
 		CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewModel.swift; sourceTree = "<group>"; };
 		CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerDataSource.swift; sourceTree = "<group>"; };
+		CC91F85F22EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 			children = (
 				CC91F84A22EC8EF2007CC789 /* URLSession+Extensions.swift */,
 				CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */,
+				CC91F85F22EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */,
 				CC91F83B22EB7375007CC789 /* CurrencyPair.swift in Sources */,
 				CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */,
+				CC91F86022EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

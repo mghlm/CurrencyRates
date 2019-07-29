@@ -42,7 +42,7 @@ enum Endpoint {
     var parameters: [URLQueryItem] {
         switch self {
         case .getCurrencyPairs(let pairs):
-            return pairs.map { URLQueryItem(name: "pair", value: $0) }
+            return pairs.map { URLQueryItem(name: "pairs", value: $0) }
         }
     }
 }

@@ -17,7 +17,6 @@ final class HomeScreenDataSource: NSObject {
     
     var currencies: [Currency]?
     var currencyPairs = [CurrencyPair]()
-    
 }
 
 extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
@@ -28,7 +27,7 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let currencyPair = currencyPairs[indexPath.row]
-        cell.textLabel?.text = "\(currencyPair.mainCurrency) --- \(currencyPair.secondaryCurrency)"
+        cell.textLabel?.text = "\(currencyPair.mainCurrency) --- \(currencyPair.secondaryCurrency) ------ \(currencyPair.rate)"
         
         return cell
     }
