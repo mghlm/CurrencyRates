@@ -9,8 +9,8 @@
 import Foundation
 
 struct CurrencyPair {
-    var pair: String 
-    var mainCurrency: String
-    var secondaryCurrency: String
+    var pair: String
+    var mainCurrency: Currency
+    var secondaryCurrency: Currency
     var rate: Double?
 }

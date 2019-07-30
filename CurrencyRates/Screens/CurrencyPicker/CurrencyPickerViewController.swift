@@ -18,9 +18,10 @@ final class CurrencyPickerViewController: UIViewController {
     
     lazy private var tableView: UITableView = {
         let tv = UITableView()
+        tv.separatorStyle = .none
         tv.dataSource = viewModel.dataSource
         tv.delegate = viewModel.dataSource
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tv.register(CurrencyPickerTableViewCell.self, forCellReuseIdentifier: CurrencyPickerTableViewCell.id)
         return tv
     }()
     

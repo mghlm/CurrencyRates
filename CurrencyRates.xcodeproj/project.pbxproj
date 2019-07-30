@@ -25,6 +25,10 @@
 		CC91F85622ECD1F5007CC789 /* CurrencyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */; };
 		CC91F85822ECD206007CC789 /* CurrencyPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */; };
 		CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */; };
+		CC91F86322F0681F007CC789 /* CurrencyPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F86222F0681F007CC789 /* CurrencyPickerTableViewCell.swift */; };
+		CC91F86622F08853007CC789 /* CurrencyPairTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F86522F08853007CC789 /* CurrencyPairTableViewCell.swift */; };
+		CC91F86822F099B5007CC789 /* AddCurrencyPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F86722F099B5007CC789 /* AddCurrencyPairView.swift */; };
+		CC91F86A22F09E5A007CC789 /* AddCurrencyPairHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F86922F09E5A007CC789 /* AddCurrencyPairHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,10 @@
 		CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewController.swift; sourceTree = "<group>"; };
 		CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewModel.swift; sourceTree = "<group>"; };
 		CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerDataSource.swift; sourceTree = "<group>"; };
+		CC91F86222F0681F007CC789 /* CurrencyPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerTableViewCell.swift; sourceTree = "<group>"; };
+		CC91F86522F08853007CC789 /* CurrencyPairTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPairTableViewCell.swift; sourceTree = "<group>"; };
+		CC91F86722F099B5007CC789 /* AddCurrencyPairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyPairView.swift; sourceTree = "<group>"; };
+		CC91F86922F09E5A007CC789 /* AddCurrencyPairHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyPairHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +178,7 @@
 		CC91F83222EB4D28007CC789 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				CC91F86422F07A91007CC789 /* Views */,
 				CC91F80422EB31CF007CC789 /* HomeScreenViewController.swift */,
 				CC91F83322EB7167007CC789 /* HomeScreenVIewModel.swift */,
 				CC91F83522EB7241007CC789 /* HomeScreenDataSource.swift */,
@@ -189,6 +198,7 @@
 		CC91F84522EB7EFE007CC789 /* CurrencyPicker */ = {
 			isa = PBXGroup;
 			children = (
+				CC91F86122F06020007CC789 /* Views */,
 				CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */,
 				CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */,
 				CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */,
@@ -212,6 +222,24 @@
 				CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CC91F86122F06020007CC789 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC91F86222F0681F007CC789 /* CurrencyPickerTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CC91F86422F07A91007CC789 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC91F86522F08853007CC789 /* CurrencyPairTableViewCell.swift */,
+				CC91F86722F099B5007CC789 /* AddCurrencyPairView.swift */,
+				CC91F86922F09E5A007CC789 /* AddCurrencyPairHeaderView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,8 +375,11 @@
 			files = (
 				CC91F85222ECAB50007CC789 /* APIService.swift in Sources */,
 				CC91F83422EB7167007CC789 /* HomeScreenVIewModel.swift in Sources */,
+				CC91F86A22F09E5A007CC789 /* AddCurrencyPairHeaderView.swift in Sources */,
+				CC91F86622F08853007CC789 /* CurrencyPairTableViewCell.swift in Sources */,
 				CC91F83922EB736D007CC789 /* Currency.swift in Sources */,
 				CC91F84D22EC8EFE007CC789 /* UIView+Extensions.swift in Sources */,
+				CC91F86322F0681F007CC789 /* CurrencyPickerTableViewCell.swift in Sources */,
 				CC91F85622ECD1F5007CC789 /* CurrencyPickerViewController.swift in Sources */,
 				CC91F83622EB7241007CC789 /* HomeScreenDataSource.swift in Sources */,
 				CC91F84B22EC8EF2007CC789 /* URLSession+Extensions.swift in Sources */,
@@ -358,6 +389,7 @@
 				CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */,
 				CC91F83B22EB7375007CC789 /* CurrencyPair.swift in Sources */,
 				CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */,
+				CC91F86822F099B5007CC789 /* AddCurrencyPairView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

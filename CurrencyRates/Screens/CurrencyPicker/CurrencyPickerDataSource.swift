@@ -33,8 +33,8 @@ final class CurrencyPickerDataSource: NSObject {
         var alreadySelectedCurrencyPairs = [String]()
         guard let selectedCurrency = selectedCurrency, let currencyPairsDisplayedOnHomeScreen = currencyPairsDisplayedOnHomeScreen else { return alreadySelectedCurrencyPairs }
         currencyPairsDisplayedOnHomeScreen.forEach { (pair) in
-            if selectedCurrency.acronym == pair.mainCurrency {
-                alreadySelectedCurrencyPairs.append(pair.secondaryCurrency)
+            if selectedCurrency.acronym == pair.mainCurrency.acronym {
+                alreadySelectedCurrencyPairs.append(pair.secondaryCurrency.acronym)
             }
         }
         return alreadySelectedCurrencyPairs
@@ -48,19 +48,25 @@ extension CurrencyPickerDataSource: UITableViewDelegate, UITableViewDataSource {
         return supportedCurrencies.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyPickerTableViewCell.id, for: indexPath) as! CurrencyPickerTableViewCell
         let currency = supportedCurrencies[indexPath.row]
-        cell.textLabel?.text = currency.acronym
+        cell.configure(with: currency)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currency = supportedCurrencies[indexPath.row]
+        let cell = cell as! CurrencyPickerTableViewCell
         if cellShouldBeHighlighted(for: currency) {
             cell.isUserInteractionEnabled = false
-            cell.textLabel?.text = "not selectable"
+            cell.shouldBeGrayedOut = true 
+//            cell.textLabel?.text = "not selectable"
         }
     }
     

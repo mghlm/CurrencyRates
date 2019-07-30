@@ -16,28 +16,39 @@ final class HomeScreenViewController: UIViewController {
     
     // MARK: - Private properties
     
+    lazy private var addCurrencyHeaderView: AddCurrencyPairHeaderView = {
+        let hv = AddCurrencyPairHeaderView(frame: .zero)
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAddCurrencies))
+        hv.addGestureRecognizer(gestureRecognizer)
+        hv.isHidden = addCurrencyPairView.isHidden ? false : true
+        return hv
+    }()
+    
     lazy private var tableView: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .clear
         tv.separatorStyle = .none 
         tv.dataSource = viewModel.dataSource
         tv.delegate = viewModel.dataSource
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tv.register(CurrencyPairTableViewCell.self, forCellReuseIdentifier: CurrencyPairTableViewCell.id)
         return tv
     }()
     
-    lazy private var addNewCurrencyPairButton: UIButton = {
-        let btn = UIButton()
-        
-        return btn
-    }() 
+//    lazy private var addNewCurrencyPairButton: UIButton = {
+//        let btn = UIButton()
+//        btn.setImage(UIImage(named: "Plus"), for: .normal)
+//        btn.addTarget(self, action: #selector(didTapAddCurrencies), for: .touchUpInside)
+//        btn.isHidden = true
+//
+//        return btn
+//    }()
     
-    lazy private var addCurrencyButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "Plus"), for: .normal)
-        btn.addTarget(self, action: #selector(didTapAddCurrencies), for: .touchUpInside)
-        return btn
-    }() 
+    lazy private var addCurrencyPairView: AddCurrencyPairView = {
+        let v = AddCurrencyPairView(frame: .zero)
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAddCurrencies))
+        v.addGestureRecognizer(gestureRecognizer)
+        return v
+    }()
     
     // MARK: - Init
     
@@ -63,7 +74,7 @@ final class HomeScreenViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         setupNavbar()
-        [tableView, addCurrencyButton].forEach { view.addSubview($0) }
+        [addCurrencyHeaderView, tableView, addCurrencyPairView].forEach { view.addSubview($0) }
         setupConstraints()
     }
     
@@ -77,14 +88,17 @@ final class HomeScreenViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.addCurrencyButton.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
+                self.addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
+                self.addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
             }
         }
     }
     
     private func setupConstraints() {
-        tableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        addCurrencyButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        addCurrencyHeaderView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: UIScreen.main.bounds.width, height: 90)
+        tableView.anchor(top: addCurrencyHeaderView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        addCurrencyPairView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 300, height: 0)
+        addCurrencyPairView.anchor(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
     }
     
     // Handlers
@@ -93,6 +107,5 @@ final class HomeScreenViewController: UIViewController {
         guard let navController = navigationController else { return }
         viewModel.didTapAddCurrencies(with: navController)
     }
-
 }
 

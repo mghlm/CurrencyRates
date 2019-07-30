@@ -27,17 +27,32 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
         self.dataSource = dataSource
         self.apiService = apiService
         
-        setupTimedRequestsForRates()
+//        setupTimedRequestsForRates()
         setupCallbacks()
+        setupTimedRequestsForRates()
     }
     
     // MARK: - Public methods
+    
+//    func getExchangeRateForNewPair(for currencies: [String]) {
+//        apiService.request(endpoint: .getCurrencyPairs(currencyPairs: currencies)) { [weak self] (result) in
+//            switch result {
+//            case .success(let currencyRates):
+//                if let currencyPairs = self?.getSortedCurrencyPairs(from: currencyRates) {
+//                    self?.dataSource.currencyPairs = currencyPairs
+//                    self?.dataSource.didAddNewPair?()
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
     
     func getExchangeRates(for currencies: [String]) {
         apiService.request(endpoint: .getCurrencyPairs(currencyPairs: currencies)) { [weak self] (result) in
             switch result {
             case .success(let currencyRates):
-                if let currencyPairs = self?.getCurrencyPairs(from: currencyRates) {
+                if let currencyPairs = self?.getSortedCurrencyPairs(from: currencyRates) {
                     self?.dataSource.currencyPairs = currencyPairs
                     self?.dataSource.didUpdateData?()
                 }
@@ -49,15 +64,15 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     // MARK: - Private methods
     
-    private func getCurrencyPairs(from dictionary: [String: Any]) -> [CurrencyPair] {
+    private func getSortedCurrencyPairs(from dictionary: [String: Any]) -> [CurrencyPair] {
         var pairs = [CurrencyPair]()
         dictionary.forEach({ (key, value) in
             var currencyLettersArray = key.map { $0 }
             guard currencyLettersArray.count == 6 else { return }
             let mainCurrency = String(currencyLettersArray[0...2])
             let secondayCurrency = String(currencyLettersArray[3...5])
-            if let value = value as? Double {
-                let currencyPair = CurrencyPair(pair: key, mainCurrency: mainCurrency, secondaryCurrency: secondayCurrency, rate: value)
+            if let value = value as? Double, let mainCurrency = Currency(rawValue: mainCurrency), let secondaryCurrency = Currency(rawValue: secondayCurrency) {
+                let currencyPair = CurrencyPair(pair: key, mainCurrency: mainCurrency, secondaryCurrency: secondaryCurrency, rate: value)
                 pairs.append(currencyPair)
             }
         })
@@ -74,10 +89,10 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     }
     
     private func setupCallbacks() {
-        dataSource.shouldStopFetchingData = { [weak self] in
+        dataSource.shouldStopFetchingRates = { [weak self] in
             self?.endTimer()
         }
-        dataSource.shouldContinueFetchingData = { [weak self] in
+        dataSource.shouldContinueFetchingRates = { [weak self] in
             self?.setupTimedRequestsForRates()
         }
     }

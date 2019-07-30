@@ -9,12 +9,12 @@
 import Foundation
 
 enum Currency: String {
-    case EUR, AUD, BGN, BRL, CAD, CHF, CNY, CZK, DKK, GBP, HKD,
+    case AUD, BGN, BRL, CAD, CHF, CNY, CZK, DKK, EUR, GBP, HKD,
         HRK, HUF, IDR, ILS, INR, ISK, JPY, KRW, MXN, MYR, NOK,
         NZD, PHP, PLN, RON, RUB, SEK, SGD, THB, TRY, USD, ZAR
     
-    static let allValues = [EUR, AUD, BGN, BRL, CAD, CHF, CNY,
-                            CZK, DKK, GBP, HKD, HRK, HUF, IDR,
+    static let allValues = [AUD, BGN, BRL, CAD, CHF, CNY,
+                            CZK, DKK, EUR, GBP, HKD, HRK, HUF, IDR,
                             ILS, INR, ISK, JPY, KRW, MXN, MYR,
                             NOK, NZD, PHP, PLN, RON, RUB, SEK,
                             SGD, THB, TRY, USD, ZAR]
@@ -24,69 +24,69 @@ enum Currency: String {
         case .EUR:
             return "Euro"
         case .AUD:
-            return "Australia Dollar"
+            return "Australian Dollar"
         case .BGN:
-            return "Bulgaria Lev"
+            return "Bulgarian Lev"
         case .BRL:
             return "Brazil Real"
         case .CAD:
-            return "Canada Dollar"
+            return "Canadian Dollar"
         case .CHF:
-            return "Switzerland Franc"
+            return "Swiss Franc"
         case .CNY:
-            return "China Yuan Renminbi"
+            return "Chinese Yuan"
         case .CZK:
             return "Czech Republic Koruna"
         case .DKK:
-            return "Denmark Krone"
+            return "Danish Krone"
         case .GBP:
-            return "United Kingdom Pound"
+            return "British Pound"
         case .HKD:
             return "Hong Kong Dollar"
         case .HRK:
-            return "Croatia Kuna"
+            return "Croatian Kuna"
         case .HUF:
-            return "Hungary Forint"
+            return "Hungarian Forint"
         case .IDR:
-            return "Indonesia Rupiah"
+            return "Indonesian Rupiah"
         case .ILS:
-            return "Israel Shekel"
+            return "Israeli Shekel"
         case .INR:
-            return "India Rupee"
+            return "Indian Rupee"
         case .ISK:
-            return "Iceland Krona"
+            return "Icelandic Krona"
         case .JPY:
-            return "Japan Yen"
+            return "Japanese Yen"
         case .KRW:
-            return "Korea (South) Won"
+            return "Korean Won"
         case .MXN:
-            return "Mexico Peso"
+            return "Mexican Peso"
         case .MYR:
             return "Malaysian Ringgit"
         case .NOK:
-            return "Norway Krone"
+            return "Norwegian Krone"
         case .NZD:
             return "New Zealand Dollar"
         case .PHP:
-            return "Philippines Peso"
+            return "Philippine Peso"
         case .PLN:
-            return "Poland Zloty"
+            return "Polish Zloty"
         case .RON:
-            return "Romania Leu"
+            return "Romanian Leu"
         case .RUB:
-            return "Russia Ruble"
+            return "Russian Ruble"
         case .SEK:
-            return "Sweden Krona"
+            return "Swedish Krona"
         case .SGD:
-            return "Singapore Dollar"
+            return "Singaporean Dollar"
         case .THB:
             return "Thailand Baht"
         case .TRY:
-            return "Turkey Lira"
+            return "Turkish Lira"
         case .USD:
             return "United States Dollar"
         case .ZAR:
-            return "South Africa Rand"
+            return "South African Rand"
         }
     }
     
@@ -111,7 +111,7 @@ enum Currency: String {
         case .DKK:
             return "DKK"
         case .GBP:
-            return "UGBP"
+            return "GBP"
         case .HKD:
             return "HKD"
         case .HRK:
