@@ -22,11 +22,9 @@
 		CC91F84D22EC8EFE007CC789 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */; };
 		CC91F85022ECA951007CC789 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F84F22ECA951007CC789 /* Endpoint.swift */; };
 		CC91F85222ECAB50007CC789 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85122ECAB50007CC789 /* APIService.swift */; };
-		CC91F85422ECCCD2007CC789 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85322ECCCD2007CC789 /* Transformer.swift */; };
 		CC91F85622ECD1F5007CC789 /* CurrencyPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */; };
 		CC91F85822ECD206007CC789 /* CurrencyPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */; };
 		CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */; };
-		CC91F86022EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F85F22EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,11 +66,9 @@
 		CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		CC91F84F22ECA951007CC789 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CC91F85122ECAB50007CC789 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		CC91F85322ECCCD2007CC789 /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 		CC91F85522ECD1F5007CC789 /* CurrencyPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewController.swift; sourceTree = "<group>"; };
 		CC91F85722ECD206007CC789 /* CurrencyPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewModel.swift; sourceTree = "<group>"; };
 		CC91F85922ECD214007CC789 /* CurrencyPickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerDataSource.swift; sourceTree = "<group>"; };
-		CC91F85F22EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +201,6 @@
 			children = (
 				CC91F84F22ECA951007CC789 /* Endpoint.swift */,
 				CC91F85122ECAB50007CC789 /* APIService.swift */,
-				CC91F85322ECCCD2007CC789 /* Transformer.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -215,7 +210,6 @@
 			children = (
 				CC91F84A22EC8EF2007CC789 /* URLSession+Extensions.swift */,
 				CC91F84C22EC8EFE007CC789 /* UIView+Extensions.swift */,
-				CC91F85F22EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -351,7 +345,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC91F85422ECCCD2007CC789 /* Transformer.swift in Sources */,
 				CC91F85222ECAB50007CC789 /* APIService.swift in Sources */,
 				CC91F83422EB7167007CC789 /* HomeScreenVIewModel.swift in Sources */,
 				CC91F83922EB736D007CC789 /* Currency.swift in Sources */,
@@ -365,7 +358,6 @@
 				CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */,
 				CC91F83B22EB7375007CC789 /* CurrencyPair.swift in Sources */,
 				CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */,
-				CC91F86022EF16C7007CC789 /* KeyedDecodingContainer+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

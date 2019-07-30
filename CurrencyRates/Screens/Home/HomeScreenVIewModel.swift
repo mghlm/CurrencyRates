@@ -19,6 +19,7 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     var dataSource: HomeScreenDataSource!
     var apiService: APIServiceType!
+    var timer: Timer?
     
     // MARK: - Init
     
@@ -26,12 +27,11 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
         self.dataSource = dataSource
         self.apiService = apiService
         
-        getExchangeRates(for: ["USDDKK", "GBPEUR", "GBPDKK"])
+        setupTimedRequestsForRates()
+        setupCallbacks()
     }
     
     // MARK: - Public methods
-    
-    // MARK: - Private methods
     
     func getExchangeRates(for currencies: [String]) {
         apiService.request(endpoint: .getCurrencyPairs(currencyPairs: currencies)) { [weak self] (result) in
@@ -47,36 +47,62 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
         }
     }
     
+    // MARK: - Private methods
+    
     private func getCurrencyPairs(from dictionary: [String: Any]) -> [CurrencyPair] {
         var pairs = [CurrencyPair]()
         dictionary.forEach({ (key, value) in
             var currencyLettersArray = key.map { $0 }
+            guard currencyLettersArray.count == 6 else { return }
             let mainCurrency = String(currencyLettersArray[0...2])
             let secondayCurrency = String(currencyLettersArray[3...5])
             if let value = value as? Double {
-                let currencyPair = CurrencyPair(mainCurrency: mainCurrency, secondaryCurrency: secondayCurrency, rate: value)
+                let currencyPair = CurrencyPair(pair: key, mainCurrency: mainCurrency, secondaryCurrency: secondayCurrency, rate: value)
                 pairs.append(currencyPair)
             }
         })
-        return pairs
+        let sortedPairs = pairs.sorted { dataSource.stringPairs.firstIndex(of: $0.pair)! < dataSource.stringPairs.firstIndex(of: $1.pair)! }
+        return sortedPairs
     }
     
+    private func setupTimedRequestsForRates() {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(executeRequest), userInfo: nil, repeats: true)
+    }
     
+    private func endTimer() {
+        timer?.invalidate()
+    }
+    
+    private func setupCallbacks() {
+        dataSource.shouldStopFetchingData = { [weak self] in
+            self?.endTimer()
+        }
+        dataSource.shouldContinueFetchingData = { [weak self] in
+            self?.setupTimedRequestsForRates()
+        }
+    }
+    
+    // Handlers 
+    
+    @objc private func executeRequest() {
+        guard let pairs = dataSource?.stringPairs, !pairs.isEmpty else { return }
+        getExchangeRates(for: pairs)
+    }
 }
 
 // MARK: - Extensions
 
 extension HomeScreenViewModel {
     
-    // Navigation
     func didTapAddCurrencies(with navController: UINavigationController) {
-        let currencyPickerDataSource = CurrencyPickerDataSource()
+        let currencyPickerDataSource = CurrencyPickerDataSource(currencyPairsDisplayedOnHomeScreen: dataSource.currencyPairs)
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
         let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         currencyPickerViewModel.didDismissWithCurrencies = { [weak self] currencies in
-            let currencyPair = CurrencyPair(mainCurrency: currencies[0], secondaryCurrency: currencies[1], rate: 1.2)
-            self?.dataSource.currencyPairs.append(currencyPair)
-            self?.dataSource.didUpdateData?()
+            self?.dataSource.stringPairs.append("\(currencies[0])\(currencies[1])")
+            if let pairs = self?.dataSource.stringPairs {
+                self?.getExchangeRates(for: pairs)
+            }
         }
         let presentedNavcontroller = UINavigationController(rootViewController: currencyPickerViewController)
         navController.present(presentedNavcontroller, animated: true, completion: nil)

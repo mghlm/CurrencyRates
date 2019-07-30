@@ -26,12 +26,16 @@ final class HomeScreenViewController: UIViewController {
         return tv
     }()
     
+    lazy private var addNewCurrencyPairButton: UIButton = {
+        let btn = UIButton()
+        
+        return btn
+    }() 
+    
     lazy private var addCurrencyButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "Plus"), for: .normal)
         btn.addTarget(self, action: #selector(didTapAddCurrencies), for: .touchUpInside)
-//        btn.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        
         return btn
     }() 
     
@@ -61,10 +65,6 @@ final class HomeScreenViewController: UIViewController {
         setupNavbar()
         [tableView, addCurrencyButton].forEach { view.addSubview($0) }
         setupConstraints()
-        
-        navigationController?.dismiss(animated: true, completion: {
-            
-        })
     }
     
     private func setupNavbar() {
@@ -74,16 +74,17 @@ final class HomeScreenViewController: UIViewController {
     
     private func setupCallBacks() {
         viewModel.dataSource.didUpdateData = { [weak self] in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
+                self.addCurrencyButton.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
             }
         }
     }
     
     private func setupConstraints() {
         tableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        addCurrencyButton.anchor(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
-        addCurrencyButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
+        addCurrencyButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
     // Handlers

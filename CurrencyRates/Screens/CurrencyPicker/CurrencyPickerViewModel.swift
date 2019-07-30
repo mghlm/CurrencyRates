@@ -10,17 +10,17 @@ import UIKit
 
 protocol CurrencyPickerViewModelType {
     var dataSource: CurrencyPickerDataSource! { get }
-    var selectedCurrencies: [String] { get set }
+    var selectedCurrencies: [Currency] { get set }
     func didSelectCurrency(in navController: UINavigationController)
-    var didDismissWithCurrencies: (([String]) -> ())? { get set }
+    var didDismissWithCurrencies: (([Currency]) -> ())? { get set }
 }
 
 final class CurrencyPickerViewModel: CurrencyPickerViewModelType {
     
     // MARK: - Public properties
     
-    var selectedCurrencies = [String]()
-    var didDismissWithCurrencies: (([String]) -> ())?
+    var selectedCurrencies = [Currency]()
+    var didDismissWithCurrencies: (([Currency]) -> ())?
     
     // MARK: - Dependencies
     
@@ -45,9 +45,9 @@ final class CurrencyPickerViewModel: CurrencyPickerViewModelType {
 
 extension CurrencyPickerViewModel {
     
-    // Navigation 
-    private func pushToCurrencyPickerScreen(in navController: UINavigationController, with currencies: [String]) {
-        let currencyPickerDataSource = CurrencyPickerDataSource()
+    private func pushToCurrencyPickerScreen(in navController: UINavigationController, with currencies: [Currency]) {
+        let currencyPickerDataSource = CurrencyPickerDataSource(currencyPairsDisplayedOnHomeScreen: dataSource.currencyPairsDisplayedOnHomeScreen)
+        currencyPickerDataSource.selectedCurrency = currencies[0]
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
         let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         currencyPickerViewModel.didDismissWithCurrencies = didDismissWithCurrencies
@@ -55,7 +55,7 @@ extension CurrencyPickerViewModel {
         navController.pushViewController(currencyPickerViewController, animated: true)
     }
     
-    private func dismissToHomeScreen(in navController: UINavigationController, with selectedCurrencies: [String]) {
+    private func dismissToHomeScreen(in navController: UINavigationController, with selectedCurrencies: [Currency]) {
         navController.dismiss(animated: true) {
             self.didDismissWithCurrencies?(selectedCurrencies)
         }
