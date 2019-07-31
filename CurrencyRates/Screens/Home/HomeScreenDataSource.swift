@@ -33,25 +33,12 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
         let currencyPair = currencyPairs[indexPath.row]
         cell.selectionStyle = .none
         cell.configure(with: currencyPair)
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let tap = UIGestureRecognizer(target: self, action: #selector(didTapAddCurrency))
-//        let headerView = AddCurrencyPairHeaderView(frame: .zero)
-//        headerView.addGestureRecognizer(tap)
-//        return headerView
-////        return AddCurrencyPairHeaderView(frame: .zero)
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return currencyPairs.count == 0 ? 0 : 100
-//    }
     
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         shouldStopFetchingRates?()

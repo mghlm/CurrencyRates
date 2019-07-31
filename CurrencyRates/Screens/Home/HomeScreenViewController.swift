@@ -34,15 +34,6 @@ final class HomeScreenViewController: UIViewController {
         return tv
     }()
     
-//    lazy private var addNewCurrencyPairButton: UIButton = {
-//        let btn = UIButton()
-//        btn.setImage(UIImage(named: "Plus"), for: .normal)
-//        btn.addTarget(self, action: #selector(didTapAddCurrencies), for: .touchUpInside)
-//        btn.isHidden = true
-//
-//        return btn
-//    }()
-    
     lazy private var addCurrencyPairView: AddCurrencyPairView = {
         let v = AddCurrencyPairView(frame: .zero)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAddCurrencies))

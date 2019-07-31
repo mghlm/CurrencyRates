@@ -27,35 +27,19 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
         self.dataSource = dataSource
         self.apiService = apiService
         
-//        setupTimedRequestsForRates()
         setupCallbacks()
         setupTimedRequestsForRates()
     }
     
     // MARK: - Public methods
     
-//    func getExchangeRateForNewPair(for currencies: [String]) {
-//        apiService.request(endpoint: .getCurrencyPairs(currencyPairs: currencies)) { [weak self] (result) in
-//            switch result {
-//            case .success(let currencyRates):
-//                if let currencyPairs = self?.getSortedCurrencyPairs(from: currencyRates) {
-//                    self?.dataSource.currencyPairs = currencyPairs
-//                    self?.dataSource.didAddNewPair?()
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
     func getExchangeRates(for currencies: [String]) {
         apiService.request(endpoint: .getCurrencyPairs(currencyPairs: currencies)) { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .success(let currencyRates):
-                if let currencyPairs = self?.getSortedCurrencyPairs(from: currencyRates) {
-                    self?.dataSource.currencyPairs = currencyPairs
-                    self?.dataSource.didUpdateData?()
-                }
+                self.dataSource.currencyPairs = self.getSortedCurrencyPairs(from: currencyRates)
+                self.dataSource.didUpdateData?()
             case .failure(let error):
                 print(error)
             }
@@ -114,10 +98,9 @@ extension HomeScreenViewModel {
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
         let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         currencyPickerViewModel.didDismissWithCurrencies = { [weak self] currencies in
-            self?.dataSource.stringPairs.append("\(currencies[0])\(currencies[1])")
-            if let pairs = self?.dataSource.stringPairs {
-                self?.getExchangeRates(for: pairs)
-            }
+            guard let self = self else { return }
+            self.dataSource.stringPairs.append("\(currencies[0])\(currencies[1])")
+            self.getExchangeRates(for: self.dataSource.stringPairs)
         }
         let presentedNavcontroller = UINavigationController(rootViewController: currencyPickerViewController)
         navController.present(presentedNavcontroller, animated: true, completion: nil)

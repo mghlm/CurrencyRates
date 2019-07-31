@@ -66,7 +66,6 @@ extension CurrencyPickerDataSource: UITableViewDelegate, UITableViewDataSource {
         if cellShouldBeHighlighted(for: currency) {
             cell.isUserInteractionEnabled = false
             cell.shouldBeGrayedOut = true 
-//            cell.textLabel?.text = "not selectable"
         }
     }
     
