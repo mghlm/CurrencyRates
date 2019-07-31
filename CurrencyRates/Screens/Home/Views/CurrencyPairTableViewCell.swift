@@ -20,12 +20,6 @@ final class CurrencyPairTableViewCell: UITableViewCell {
         }
     }
     
-    var rate: Double? {
-        didSet {
-            updateRate()
-        }
-    }
-    
     // MARK: - Private properties
     
     lazy private var mainCurrencyAcronymLabel: UILabel = {
@@ -66,18 +60,18 @@ final class CurrencyPairTableViewCell: UITableViewCell {
         [mainCurrencyAcronymLabel, mainCurrencyNameLabel, rateLabel, secondaryCurrencyNameLabel].forEach { addSubview($0) }
         mainCurrencyAcronymLabel.text = "1 \(currencyPair.mainCurrency.acronym)"
         mainCurrencyNameLabel.text = currencyPair.mainCurrency.name
+        setupRateLabel()
+        secondaryCurrencyNameLabel.text = "\(currencyPair.secondaryCurrency.name) - \(currencyPair.secondaryCurrency.acronym)"
+        setupConstraints()
+    }
+    
+    private func setupRateLabel() {
         let rate = String(currencyPair.rate ?? 0)
         let twoDecimals = String(rate.suffix(2))
         let range = (rate as NSString).range(of: twoDecimals)
         let attrStringg = NSMutableAttributedString.init(string: rate)
         attrStringg.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)], range: range)
         rateLabel.attributedText = attrStringg
-        secondaryCurrencyNameLabel.text = "\(currencyPair.secondaryCurrency.name) - \(currencyPair.secondaryCurrency.acronym)"
-        setupConstraints()
-    }
-    
-    private func updateRate() {
-        rateLabel.text = String(rate ?? 0)
     }
     
     private func setupConstraints() {

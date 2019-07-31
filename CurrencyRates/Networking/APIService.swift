@@ -10,6 +10,7 @@ import Foundation
 
 protocol APIServiceType {
     func request(endpoint: Endpoint, completion: @escaping (Result<[String: Any], NetworkError>) -> ())
+    func buildRequest(for endpoint: Endpoint) -> URLRequest?
 }
 
 final class APIService: APIServiceType {
@@ -24,17 +25,17 @@ final class APIService: APIServiceType {
         self.session = session
     }
     
-    // MARK: - Public methods 
+    // MARK: - Public methods
     
     func request(endpoint: Endpoint, completion: @escaping (Result<[String: Any], NetworkError>) -> ()) {
-        var components = URLComponents()
-        components.scheme = endpoint.scheme
-        components.host = endpoint.host
-        components.path = endpoint.path
-        components.queryItems = endpoint.parameters
-        
-        guard let url = components.url else { return }
-        var urlRequest = URLRequest(url: url)
+//        var components = URLComponents()
+//        components.scheme = endpoint.scheme
+//        components.host = endpoint.host
+//        components.path = endpoint.path
+//        components.queryItems = endpoint.parameters
+//
+//        guard let url = components.url else { return }
+        guard var urlRequest = buildRequest(for: endpoint) else { return }
         urlRequest.httpMethod = endpoint.method
         
         let task = session.dataTask(with: urlRequest) { (result) in
@@ -57,6 +58,16 @@ final class APIService: APIServiceType {
             }
         }
         task.resume()
+    }
+    
+    func buildRequest(for endpoint: Endpoint) -> URLRequest? {
+        var components = URLComponents()
+        components.scheme = endpoint.scheme
+        components.host = endpoint.host
+        components.path = endpoint.path
+        components.queryItems = endpoint.parameters
+        guard let url = components.url else { return nil }
+        return URLRequest(url: url)
     }
 }
 

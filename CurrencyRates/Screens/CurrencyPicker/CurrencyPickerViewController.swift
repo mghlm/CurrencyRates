@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CurrencyPickerViewController: UIViewController {
+class CurrencyPickerViewController: UIViewController {
     
     // MARK: - Dependencies
     
@@ -22,6 +22,7 @@ final class CurrencyPickerViewController: UIViewController {
         tv.dataSource = viewModel.dataSource
         tv.delegate = viewModel.dataSource
         tv.register(CurrencyPickerTableViewCell.self, forCellReuseIdentifier: CurrencyPickerTableViewCell.id)
+        tv.accessibilityIdentifier = "currencyPickerTableViewIdentifier"
         return tv
     }()
     

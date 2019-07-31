@@ -10,25 +10,46 @@ import XCTest
 
 class CurrencyRatesUITests: XCTestCase {
 
+    var app: XCUIApplication!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testAddCurrencyPairFlow() {
+        
+        // Assert Home Screen
+        HomeUIScreen.assertScreenExist(in: app)
+        
+        // Assert Currency Picker screen
+        HomeUIScreen.addCurrencyPairView.component(in: app).tap()
+        CurrencyPickerUIScreen.assertScreenExist(in: app)
+        
+        // Assert Currency Picker screen
+        CurrencyPickerUIScreen.tableView.component(in: app).cells.allElementsBoundByIndex.first?.tap()
+        CurrencyPickerUIScreen.assertScreenExist(in: app)
+        
+        // Assert Home Screen with Currency Pair Rates
+        CurrencyPickerUIScreen.tableView.component(in: app).cells.element(boundBy: 1).tap()
+        HomeUIScreen.assertHeaderView(in: app)
+        
+        // Assert Home Screen after delete cell
+        homeScreenExistAfterDeleteCell()
     }
-
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func homeScreenExistAfterDeleteCell() {
+        let cell = HomeUIScreen.tableView.component(in: app).cells.allElementsBoundByIndex.first!
+        
+        let rightOffset = CGVector(dx: 0.95, dy: 0.5)
+        let leftOffset = CGVector(dx: 0.05, dy: 0.5)
+        
+        let cellFarRightCoordinate = cell.coordinate(withNormalizedOffset: rightOffset)
+        let cellFarLeftCoordinate = cell.coordinate(withNormalizedOffset: leftOffset)
+        
+        cellFarRightCoordinate.press(forDuration: 0.1, thenDragTo: cellFarLeftCoordinate)
+        
+        HomeUIScreen.assertScreenExist(in: app)
     }
-
 }

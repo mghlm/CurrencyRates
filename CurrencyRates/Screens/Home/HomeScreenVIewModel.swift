@@ -11,6 +11,7 @@ import UIKit
 protocol HomeScreenViewModelType {
     var dataSource: HomeScreenDataSource! { get }
     func didTapAddCurrencies(with navController: UINavigationController)
+    func getExchangeRates(for currencies: [String])
 }
 
 final class HomeScreenViewModel: HomeScreenViewModelType {

@@ -55,6 +55,8 @@ extension CurrencyPickerDataSource: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyPickerTableViewCell.id, for: indexPath) as! CurrencyPickerTableViewCell
         let currency = supportedCurrencies[indexPath.row]
+        cell.shouldBeGrayedOut = false
+        cell.accessibilityIdentifier = "currencyPickerTableViewCellIdentifier"
         cell.configure(with: currency)
         
         return cell

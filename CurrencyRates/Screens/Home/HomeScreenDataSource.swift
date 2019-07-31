@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class HomeScreenDataSource: NSObject {
+class HomeScreenDataSource: NSObject {
     
     // MARK: - Public properties
     
@@ -32,6 +32,7 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyPairTableViewCell.id, for: indexPath) as! CurrencyPairTableViewCell
         let currencyPair = currencyPairs[indexPath.row]
         cell.selectionStyle = .none
+        cell.accessibilityIdentifier = "currencyPairTableViewCellIdentifier"
         cell.configure(with: currencyPair)
         return cell
     }

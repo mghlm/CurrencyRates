@@ -24,7 +24,7 @@ final class CurrencyPickerTableViewCell: UITableViewCell {
     
     var shouldBeGrayedOut: Bool = false {
         didSet {
-            blackOverlayView.isHidden = !shouldBeGrayedOut
+            whiteOverlayView.isHidden = !shouldBeGrayedOut
         }
     }
     
@@ -49,7 +49,7 @@ final class CurrencyPickerTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    lazy private var blackOverlayView: UIView = {
+    lazy private var whiteOverlayView: UIView = {
         let v = UIView()
         v.backgroundColor = .white
         v.alpha = 0.8
@@ -65,11 +65,11 @@ final class CurrencyPickerTableViewCell: UITableViewCell {
     // MARK: - Private methods
     
     private func setupUI() {
-        [flagLabel, acronymLabel, nameLabel, blackOverlayView].forEach { addSubview($0) }
+        [flagLabel, acronymLabel, nameLabel, whiteOverlayView].forEach { addSubview($0) }
+        whiteOverlayView.isHidden = !shouldBeGrayedOut
         flagLabel.text = currency.flag
         acronymLabel.text = currency.acronym
         nameLabel.text = currency.name
-        blackOverlayView.isHidden = !shouldBeGrayedOut
         setupConstraints()
     }
     
@@ -77,6 +77,6 @@ final class CurrencyPickerTableViewCell: UITableViewCell {
         flagLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         acronymLabel.anchor(top: topAnchor, left: flagLabel.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         nameLabel.anchor(top: topAnchor, left: acronymLabel.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 24, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        blackOverlayView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        whiteOverlayView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
 }

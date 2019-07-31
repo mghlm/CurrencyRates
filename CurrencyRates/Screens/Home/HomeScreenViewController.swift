@@ -21,6 +21,7 @@ final class HomeScreenViewController: UIViewController {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAddCurrencies))
         hv.addGestureRecognizer(gestureRecognizer)
         hv.isHidden = addCurrencyPairView.isHidden ? false : true
+        hv.accessibilityIdentifier = "addCurrencyHeaderViewIdentifier"
         return hv
     }()
     
@@ -31,6 +32,7 @@ final class HomeScreenViewController: UIViewController {
         tv.dataSource = viewModel.dataSource
         tv.delegate = viewModel.dataSource
         tv.register(CurrencyPairTableViewCell.self, forCellReuseIdentifier: CurrencyPairTableViewCell.id)
+        tv.accessibilityIdentifier = "homeScreenTableViewIdentifier"
         return tv
     }()
     
@@ -38,6 +40,7 @@ final class HomeScreenViewController: UIViewController {
         let v = AddCurrencyPairView(frame: .zero)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAddCurrencies))
         v.addGestureRecognizer(gestureRecognizer)
+        v.accessibilityIdentifier = "addCurrencyPairViewIdentifier"
         return v
     }()
     
