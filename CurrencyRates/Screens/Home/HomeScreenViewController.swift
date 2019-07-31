@@ -86,6 +86,22 @@ final class HomeScreenViewController: UIViewController {
                 self.addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
             }
         }
+        viewModel.errorMessage = { [weak self] error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showAlert(with: "Error", message: error.rawValue, delay: 999)
+            }
+        }
+    }
+    
+    private func showAlert(with title: String, message: String?, delay: Double) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        present(alert, animated: true)
+        
+        let deadline = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
     
     private func setupConstraints() {

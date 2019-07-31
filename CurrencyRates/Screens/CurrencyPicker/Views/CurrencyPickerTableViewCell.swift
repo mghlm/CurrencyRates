@@ -22,9 +22,9 @@ final class CurrencyPickerTableViewCell: UITableViewCell {
     
     // MARK: - Public properties
     
-    var shouldBeGrayedOut: Bool = false {
+    var shouldBeHighlighted: Bool = false {
         didSet {
-            whiteOverlayView.isHidden = !shouldBeGrayedOut
+            whiteOverlayView.isHidden = !shouldBeHighlighted
         }
     }
     
@@ -66,7 +66,7 @@ final class CurrencyPickerTableViewCell: UITableViewCell {
     
     private func setupUI() {
         [flagLabel, acronymLabel, nameLabel, whiteOverlayView].forEach { addSubview($0) }
-        whiteOverlayView.isHidden = !shouldBeGrayedOut
+        whiteOverlayView.isHidden = !shouldBeHighlighted
         flagLabel.text = currency.flag
         acronymLabel.text = currency.acronym
         nameLabel.text = currency.name

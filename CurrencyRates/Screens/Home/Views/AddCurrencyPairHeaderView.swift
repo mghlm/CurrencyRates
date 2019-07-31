@@ -42,7 +42,6 @@ final class AddCurrencyPairHeaderView: UIView {
     // MARK: - Private methods
     
     private func setupUI() {
-        
         [addIcon, mainAddCurrencyLabel].forEach { addSubview($0) }
         setupConstraints()
     }

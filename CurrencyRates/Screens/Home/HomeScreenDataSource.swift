@@ -13,11 +13,19 @@ class HomeScreenDataSource: NSObject {
     
     // MARK: - Public properties
     
+    /// To call when data gets updated to reload tableview
     var didUpdateData: (() -> Void)?
+    
+    /// Pauses the requests for rates
     var shouldStopFetchingRates: (() -> Void)?
+    
+    /// Continue the requests for rates
     var shouldContinueFetchingRates: (() -> Void)?
     
+    /// Currency pairs currently showed on home screen
     var currencyPairs = [CurrencyPair]()
+    
+    /// Currency pairs currently showed on home screen in string format ie. ["GBPEUR", "EURGBP"]
     var stringPairs = [String]()
 }
 
@@ -44,10 +52,6 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         shouldStopFetchingRates?()
     }
-    
-//    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-//        shouldContinueFetchingRates?()
-//    }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

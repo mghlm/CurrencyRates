@@ -9,6 +9,7 @@
 import Foundation
 
 enum Endpoint {
+    
     case getCurrencyPairs(currencyPairs: [String])
     
     var scheme: String {

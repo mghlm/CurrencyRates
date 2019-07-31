@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrencyPickerViewController: UIViewController {
+final class CurrencyPickerViewController: UIViewController {
     
     // MARK: - Dependencies
     

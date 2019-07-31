@@ -11,12 +11,6 @@ import UIKit
 extension UIView {
     
     /// Helper method to setup constraints using autolayout
-    ///
-    /// - Parameters:
-    ///   - top: Top constraints
-    ///   - left: Left constraint
-    ///   - bottom: Bottom constraint
-    ///   - right: Right constraint
     func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         if let top = top {
@@ -40,10 +34,6 @@ extension UIView {
     }
     
     /// Helper method to setup center alignment using auto layout
-    ///
-    /// - Parameters:
-    ///   - centerX: Horizontal center alignment
-    ///   - centerY: Vertical center alignment
     func anchor(centerX: NSLayoutXAxisAnchor?, centerY: NSLayoutYAxisAnchor?) {
         if let x = centerX {
             centerXAnchor.constraint(equalTo: x).isActive = true

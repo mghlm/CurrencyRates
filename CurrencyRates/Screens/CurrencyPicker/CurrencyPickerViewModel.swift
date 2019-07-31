@@ -9,9 +9,19 @@
 import UIKit
 
 protocol CurrencyPickerViewModelType {
+    
+    /// DataSource for Currency Picker Screen
     var dataSource: CurrencyPickerDataSource! { get }
+    
+    /// The currency/currencies selected to compare rates between
     var selectedCurrencies: [Currency] { get set }
+    
+    /// Navigates to either another currency picker screen or dismisses back to homescreen
+    ///
+    /// - Parameter navController: The currently presented navigation controller
     func didSelectCurrency(in navController: UINavigationController)
+    
+    /// Callback that passes the selected currencies for comparison when picker screen is dismissed
     var didDismissWithCurrencies: (([Currency]) -> ())? { get set }
 }
 
@@ -45,13 +55,21 @@ final class CurrencyPickerViewModel: CurrencyPickerViewModelType {
 
 extension CurrencyPickerViewModel {
     
+    // Navgiation 
+    
     private func pushToCurrencyPickerScreen(in navController: UINavigationController, with currencies: [Currency]) {
+        // DataSource
         let currencyPickerDataSource = CurrencyPickerDataSource(currencyPairsDisplayedOnHomeScreen: dataSource.currencyPairsDisplayedOnHomeScreen)
         currencyPickerDataSource.selectedCurrency = currencies[0]
+        
+        // ViewModel
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
-        let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         currencyPickerViewModel.didDismissWithCurrencies = didDismissWithCurrencies
         currencyPickerViewModel.selectedCurrencies = selectedCurrencies
+        
+        // ViewController
+        let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
+        
         navController.pushViewController(currencyPickerViewController, animated: true)
     }
     

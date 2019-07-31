@@ -10,11 +10,20 @@ import UIKit
 
 final class CurrencyPickerDataSource: NSObject {
     
+    // MARK: - Private properties
+    
+    /// All currencies to show on currency picker screen
+    private var supportedCurrencies: [Currency]!
+    
     // MARK: - Public propreties
     
-    var selectedCurrency: Currency?
-    var supportedCurrencies: [Currency]!
+    /// All currency pairs currently displayed on the home screen
     var currencyPairsDisplayedOnHomeScreen: [CurrencyPair]!
+    
+    /// The currency selected on previous currency picker screen
+    var selectedCurrency: Currency?
+    
+    /// Callback passes the selected currency
     var didSelectCurrency: ((Currency) -> ())?
         
     // MARK: - Init
@@ -24,12 +33,14 @@ final class CurrencyPickerDataSource: NSObject {
         self.currencyPairsDisplayedOnHomeScreen = currencyPairsDisplayedOnHomeScreen
     }
     
-    func cellShouldBeHighlighted(for currency: Currency) -> Bool {
+    // MARK: - Private methods
+    
+    private func cellShouldBeHighlighted(for currency: Currency) -> Bool {
         return currency.acronym == selectedCurrency?.acronym ||
             alreadySelectedSecondaryCurrencyPairs().contains(currency.acronym)
     }
     
-    func alreadySelectedSecondaryCurrencyPairs() -> [String] {
+    private func alreadySelectedSecondaryCurrencyPairs() -> [String] {
         var alreadySelectedCurrencyPairs = [String]()
         guard let selectedCurrency = selectedCurrency, let currencyPairsDisplayedOnHomeScreen = currencyPairsDisplayedOnHomeScreen else { return alreadySelectedCurrencyPairs }
         currencyPairsDisplayedOnHomeScreen.forEach { (pair) in
@@ -55,10 +66,9 @@ extension CurrencyPickerDataSource: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyPickerTableViewCell.id, for: indexPath) as! CurrencyPickerTableViewCell
         let currency = supportedCurrencies[indexPath.row]
-        cell.shouldBeGrayedOut = false
         cell.accessibilityIdentifier = "currencyPickerTableViewCellIdentifier"
+        cell.shouldBeHighlighted = false
         cell.configure(with: currency)
-        
         return cell
     }
     
@@ -67,7 +77,7 @@ extension CurrencyPickerDataSource: UITableViewDelegate, UITableViewDataSource {
         let cell = cell as! CurrencyPickerTableViewCell
         if cellShouldBeHighlighted(for: currency) {
             cell.isUserInteractionEnabled = false
-            cell.shouldBeGrayedOut = true 
+            cell.shouldBeHighlighted = true 
         }
     }
     

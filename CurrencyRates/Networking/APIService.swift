@@ -28,13 +28,7 @@ final class APIService: APIServiceType {
     // MARK: - Public methods
     
     func request(endpoint: Endpoint, completion: @escaping (Result<[String: Any], NetworkError>) -> ()) {
-//        var components = URLComponents()
-//        components.scheme = endpoint.scheme
-//        components.host = endpoint.host
-//        components.path = endpoint.path
-//        components.queryItems = endpoint.parameters
-//
-//        guard let url = components.url else { return }
+        
         guard var urlRequest = buildRequest(for: endpoint) else { return }
         urlRequest.httpMethod = endpoint.method
         

@@ -22,6 +22,5 @@ enum CurrencyPickerUIScreen {
     
     static func assertScreenExist(in app: XCUIApplication) {
         XCTAssert(CurrencyPickerUIScreen.tableView.component(in: app).exists)
-//        XCTAssert(CurrencyPickerUIScreen.currencyTableViewCell.component(in: app).exists)
     }
 }

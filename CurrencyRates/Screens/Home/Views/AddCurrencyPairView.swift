@@ -60,7 +60,6 @@ final class AddCurrencyPairView: UIView {
     // MARK: - Private methods
     
     private func setupUI() {
-        
         addSubview(addCurrencyStackView)
         setupConstraints()
     }

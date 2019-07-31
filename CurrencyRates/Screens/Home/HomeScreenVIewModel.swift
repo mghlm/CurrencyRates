@@ -9,8 +9,21 @@
 import UIKit
 
 protocol HomeScreenViewModelType {
+    
+    /// Data source for home screen
     var dataSource: HomeScreenDataSource! { get }
+    
+    /// Callback in case of error, passes the NetworkError  
+    var errorMessage: ((NetworkError) -> Void)? { get set }
+    
+    /// Presents currency picker screen
+    ///
+    /// - Parameter navController: Current navigation controller to present screen in
     func didTapAddCurrencies(with navController: UINavigationController)
+    
+    /// Fetches current exchange rates
+    ///
+    /// - Parameter currencies: Currency pairs to compare rates between ie. ["GBPEUR", "EURGBP"]
     func getExchangeRates(for currencies: [String])
 }
 
@@ -18,9 +31,16 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     // MARK: - Dependencies
     
+    private var apiService: APIServiceType!
     var dataSource: HomeScreenDataSource!
-    var apiService: APIServiceType!
-    var timer: Timer?
+    
+    // MARK: - Public properties
+    
+    var errorMessage: ((NetworkError) -> Void)?
+    
+    // MARK: - Private properties
+    
+    private var timer: Timer!
     
     // MARK: - Init
     
@@ -42,7 +62,7 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
                 self.dataSource.currencyPairs = self.getSortedCurrencyPairs(from: currencyRates)
                 self.dataSource.didUpdateData?()
             case .failure(let error):
-                print(error)
+                self.errorMessage?(error)
             }
         }
     }
@@ -94,16 +114,24 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
 
 extension HomeScreenViewModel {
     
+    // Navigation
+    
     func didTapAddCurrencies(with navController: UINavigationController) {
+        // DataSource
         let currencyPickerDataSource = CurrencyPickerDataSource(currencyPairsDisplayedOnHomeScreen: dataSource.currencyPairs)
+        
+        // ViewModel
         let currencyPickerViewModel = CurrencyPickerViewModel(dataSource: currencyPickerDataSource)
-        let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         currencyPickerViewModel.didDismissWithCurrencies = { [weak self] currencies in
             guard let self = self else { return }
             self.dataSource.stringPairs.append("\(currencies[0])\(currencies[1])")
             self.getExchangeRates(for: self.dataSource.stringPairs)
         }
+        
+        // ViewController
+        let currencyPickerViewController = CurrencyPickerViewController(viewModel: currencyPickerViewModel)
         let presentedNavcontroller = UINavigationController(rootViewController: currencyPickerViewController)
+        
         navController.present(presentedNavcontroller, animated: true, completion: nil)
     }
 }
