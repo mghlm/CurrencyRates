@@ -26,7 +26,29 @@ class HomeScreenDataSource: NSObject {
     var currencyPairs = [CurrencyPair]()
     
     /// Currency pairs currently showed on home screen in string format ie. ["GBPEUR", "EURGBP"]
-    var stringPairs = [String]()
+    
+    var stringPairs: [String] {
+        didSet {
+            defaults.set(stringPairs, forKey: "stringArray")
+            didUpdateData?()
+        }
+    }
+    
+    var defaults: UserDefaults!
+    
+    // MARK: - Init
+    
+    init(defaults: UserDefaults = UserDefaults.standard) {
+        self.defaults = defaults
+        self.stringPairs = defaults.array(forKey: "stringArray") as? [String] ?? [String]()
+    }
+    
+    // MARK: - Private methods
+    
+    private func updateStringPairArray() {
+        
+    }
+    
 }
 
 // MARK: - Extensions 

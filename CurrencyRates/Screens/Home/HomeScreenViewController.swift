@@ -44,6 +44,14 @@ final class HomeScreenViewController: UIViewController {
         return v
     }()
     
+    lazy private var activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView(style: .gray)
+        ai.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        ai.center = self.view.center
+        ai.hidesWhenStopped = true
+        return ai
+    }()
+    
     // MARK: - Init
     
     init(viewModel: HomeScreenViewModelType) {
@@ -59,6 +67,7 @@ final class HomeScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupActivityIndicator()
         setupUI()
         setupCallBacks()
     }
@@ -67,9 +76,17 @@ final class HomeScreenViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
+        self.addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
+        self.addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
+        self.tableView.reloadData()
         setupNavbar()
         [addCurrencyHeaderView, tableView, addCurrencyPairView].forEach { view.addSubview($0) }
         setupConstraints()
+    }
+    
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
     }
     
     private func setupNavbar() {
@@ -81,15 +98,16 @@ final class HomeScreenViewController: UIViewController {
         viewModel.dataSource.didUpdateData = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.tableView.reloadData()
                 self.addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
                 self.addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
+                self.activityIndicator.stopAnimating()
+                self.tableView.reloadData()
             }
         }
         viewModel.errorMessage = { [weak self] error in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.showAlert(with: "Error", message: error.rawValue, delay: 999)
+                self.showAlert(with: "Error", message: error.rawValue, delay: 5)
             }
         }
     }

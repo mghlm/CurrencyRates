@@ -40,7 +40,7 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     // MARK: - Private properties
     
-    private var timer: Timer!
+    private weak var timer: Timer!
     
     // MARK: - Init
     
@@ -50,6 +50,10 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
         
         setupCallbacks()
         setupTimedRequestsForRates()
+    }
+    
+    deinit {
+        endTimer()
     }
     
     // MARK: - Public methods
@@ -86,11 +90,14 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     }
     
     private func setupTimedRequestsForRates() {
+        guard timer == nil else { return }
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(executeRequest), userInfo: nil, repeats: true)
     }
     
     private func endTimer() {
+        guard timer != nil else { return }
         timer?.invalidate()
+        timer = nil
     }
     
     private func setupCallbacks() {

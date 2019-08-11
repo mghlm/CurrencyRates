@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC2CE50822FF101900247E26 /* WeakTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2CE50722FF101900247E26 /* WeakTimer.swift */; };
 		CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F80222EB31CF007CC789 /* AppDelegate.swift */; };
 		CC91F80522EB31CF007CC789 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F80422EB31CF007CC789 /* HomeScreenViewController.swift */; };
 		CC91F80822EB31CF007CC789 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC91F80622EB31CF007CC789 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC2CE50722FF101900247E26 /* WeakTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakTimer.swift; sourceTree = "<group>"; };
 		CC91F7FF22EB31CF007CC789 /* CurrencyRates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyRates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC91F80222EB31CF007CC789 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC91F80422EB31CF007CC789 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC2CE50622FF100E00247E26 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CC2CE50722FF101900247E26 /* WeakTimer.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		CC91F7F622EB31CF007CC789 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +160,7 @@
 		CC91F80122EB31CF007CC789 /* CurrencyRates */ = {
 			isa = PBXGroup;
 			children = (
+				CC2CE50622FF100E00247E26 /* Common */,
 				CC91F83022EB4CFD007CC789 /* Screens */,
 				CC91F84622EC882E007CC789 /* Networking */,
 				CC91F83722EB7362007CC789 /* Models */,
@@ -455,6 +466,7 @@
 				CC91F80522EB31CF007CC789 /* HomeScreenViewController.swift in Sources */,
 				CC91F85A22ECD214007CC789 /* CurrencyPickerDataSource.swift in Sources */,
 				CC91F83B22EB7375007CC789 /* CurrencyPair.swift in Sources */,
+				CC2CE50822FF101900247E26 /* WeakTimer.swift in Sources */,
 				CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */,
 				CC91F86822F099B5007CC789 /* AddCurrencyPairView.swift in Sources */,
 			);
