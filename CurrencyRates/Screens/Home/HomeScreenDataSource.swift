@@ -13,7 +13,8 @@ class HomeScreenDataSource: NSObject {
     
     // MARK: - Public properties
     
-    /// To call when data gets updated to reload tableview
+    var didLoadInitialData: (() -> Void)?
+    
     var didUpdateData: (() -> Void)?
     
     /// Pauses the requests for rates
@@ -23,14 +24,14 @@ class HomeScreenDataSource: NSObject {
     var shouldContinueFetchingRates: (() -> Void)?
     
     /// Currency pairs currently showed on home screen
-    var currencyPairs = [CurrencyPair]()
+    var currencyPairs = [CurrencyPair]() 
     
     /// Currency pairs currently showed on home screen in string format ie. ["GBPEUR", "EURGBP"]
     
     var stringPairs: [String] {
         didSet {
             defaults.set(stringPairs, forKey: "stringArray")
-            didUpdateData?()
+            didLoadInitialData?()
         }
     }
     
@@ -80,7 +81,7 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
             currencyPairs.remove(at: indexPath.row)
             stringPairs.remove(at: indexPath.row)
             shouldContinueFetchingRates?()
-            didUpdateData?()
+            didLoadInitialData?()
         }
     }
 }

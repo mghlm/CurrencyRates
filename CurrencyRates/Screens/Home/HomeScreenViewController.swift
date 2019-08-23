@@ -67,8 +67,9 @@ final class HomeScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupActivityIndicator()
-        setupUI()
+        getInitialData()
         setupCallBacks()
     }
 
@@ -76,14 +77,21 @@ final class HomeScreenViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
+        showCorrectAddCurrencyButton()
         tableView.reloadData()
-        if viewModel.dataSource.stringPairs.isEmpty {
-            activityIndicator.stopAnimating()
-        }
+        activityIndicator.stopAnimating()
         setupNavbar()
         [addCurrencyHeaderView, tableView, addCurrencyPairView].forEach { view.addSubview($0) }
         setupConstraints()
+    }
+    
+    private func getInitialData() {
+        guard let pairs = viewModel.dataSource?.stringPairs else { return }
+        viewModel.getExchangeRates(for: pairs) { [weak self] in
+            DispatchQueue.main.async {
+                self?.setupUI()
+            }
+        }
     }
     
     private func setupActivityIndicator() {
@@ -97,13 +105,19 @@ final class HomeScreenViewController: UIViewController {
     }
     
     private func setupCallBacks() {
+        viewModel.dataSource.didLoadInitialData = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showCorrectAddCurrencyButton()
+                self.activityIndicator.stopAnimating()
+                self.tableView.reloadData()
+            }
+        }
         viewModel.dataSource.didUpdateData = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
-                self.addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
-                self.activityIndicator.stopAnimating()
-                self.tableView.reloadData()
+                let newIndexPath = IndexPath(row: self.viewModel.dataSource.currencyPairs.count - 1, section: 0)
+                self.tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }
         viewModel.errorMessage = { [weak self] error in
@@ -112,6 +126,11 @@ final class HomeScreenViewController: UIViewController {
                 self.showAlert(with: "Error", message: error.rawValue, delay: 5)
             }
         }
+    }
+    
+    private func showCorrectAddCurrencyButton() {
+        addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
+        addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
     }
     
     private func showAlert(with title: String, message: String?, delay: Double) {
