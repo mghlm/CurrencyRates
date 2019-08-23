@@ -113,11 +113,25 @@ final class HomeScreenViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
-        viewModel.dataSource.didUpdateData = { [weak self] in
+        viewModel.dataSource.didAddNewCurrencyPair = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 let newIndexPath = IndexPath(row: self.viewModel.dataSource.currencyPairs.count - 1, section: 0)
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        }
+        viewModel.dataSource.didUpdateRates = { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                var counter = 0
+                guard let indexPaths = self.tableView.indexPathsForVisibleRows else { return }
+                
+                self.tableView.visibleCells.forEach { cell in
+                    if let cell = cell as? CurrencyPairTableViewCell {
+                        cell.configure(with: self.viewModel.dataSource.currencyPairs[indexPaths[counter].row])
+                        counter += 1
+                    }
+                }
             }
         }
         viewModel.errorMessage = { [weak self] error in

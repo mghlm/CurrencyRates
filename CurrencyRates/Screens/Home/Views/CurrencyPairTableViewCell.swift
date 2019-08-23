@@ -35,7 +35,7 @@ final class CurrencyPairTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    lazy private var rateLabel: UILabel = {
+    var rateLabel: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.systemFont(ofSize: 30)
         return lbl

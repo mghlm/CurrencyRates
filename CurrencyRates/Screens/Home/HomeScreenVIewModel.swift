@@ -114,6 +114,9 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     @objc private func executeRequest() {
         guard let pairs = dataSource?.stringPairs, !pairs.isEmpty else { return }
+        getExchangeRates(for: pairs) {
+            self.dataSource.didUpdateRates?()
+        }
 //        getExchangeRates(for: pairs)
     }
 }
@@ -134,7 +137,7 @@ extension HomeScreenViewModel {
             guard let self = self else { return }
             self.dataSource.stringPairs.append("\(currencies[0])\(currencies[1])")
             self.getExchangeRates(for: self.dataSource.stringPairs, completion: {
-                self.dataSource.didUpdateData?()
+                self.dataSource.didAddNewCurrencyPair?()
             })
         }
         

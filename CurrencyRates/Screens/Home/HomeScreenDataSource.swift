@@ -15,7 +15,9 @@ class HomeScreenDataSource: NSObject {
     
     var didLoadInitialData: (() -> Void)?
     
-    var didUpdateData: (() -> Void)?
+    var didAddNewCurrencyPair: (() -> Void)?
+    
+    var didUpdateRates: (() -> Void)?
     
     /// Pauses the requests for rates
     var shouldStopFetchingRates: (() -> Void)?
@@ -76,12 +78,15 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
         shouldStopFetchingRates?()
     }
     
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        shouldContinueFetchingRates?()
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             currencyPairs.remove(at: indexPath.row)
             stringPairs.remove(at: indexPath.row)
             shouldContinueFetchingRates?()
-            didLoadInitialData?()
         }
     }
 }
