@@ -20,7 +20,7 @@ final class HomeScreenViewController: UIViewController {
         let hv = AddCurrencyPairHeaderView(frame: .zero)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapAddCurrencies))
         hv.addGestureRecognizer(gestureRecognizer)
-        hv.isHidden = addCurrencyPairView.isHidden ? false : true
+        hv.isHidden = true
         hv.accessibilityIdentifier = "addCurrencyHeaderViewIdentifier"
         return hv
     }()
@@ -76,9 +76,11 @@ final class HomeScreenViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        self.addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
-        self.addCurrencyHeaderView.isHidden = self.viewModel.dataSource.stringPairs.isEmpty
-        self.tableView.reloadData()
+        addCurrencyPairView.isHidden = !self.viewModel.dataSource.stringPairs.isEmpty
+        tableView.reloadData()
+        if viewModel.dataSource.stringPairs.isEmpty {
+            activityIndicator.stopAnimating()
+        }
         setupNavbar()
         [addCurrencyHeaderView, tableView, addCurrencyPairView].forEach { view.addSubview($0) }
         setupConstraints()
