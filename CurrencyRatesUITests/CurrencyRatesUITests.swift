@@ -13,6 +13,7 @@ class CurrencyRatesUITests: XCTestCase {
     var app: XCUIApplication!
     
     override func setUp() {
+        Springboard.deleteMyApp()
         continueAfterFailure = false
         app = XCUIApplication()
         app.launch()

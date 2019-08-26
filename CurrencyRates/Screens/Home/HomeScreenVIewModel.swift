@@ -24,7 +24,7 @@ protocol HomeScreenViewModelType {
     /// Fetches current exchange rates
     ///
     /// - Parameter currencies: Currency pairs to compare rates between ie. ["GBPEUR", "EURGBP"]
-    func getExchangeRates(for currencies: [String])
+    func getExchangeRates(for currencies: [String], completion: @escaping (() -> Void))
 }
 
 final class HomeScreenViewModel: HomeScreenViewModelType {
@@ -58,13 +58,13 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     // MARK: - Public methods
     
-    func getExchangeRates(for currencies: [String]) {
+    func getExchangeRates(for currencies: [String], completion: @escaping (() -> Void)) {
         apiService.request(endpoint: .getCurrencyPairs(currencyPairs: currencies)) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
             case .success(let currencyRates):
                 self.dataSource.currencyPairs = self.getSortedCurrencyPairs(from: currencyRates)
-                self.dataSource.didUpdateData?()
+                completion()
             case .failure(let error):
                 self.errorMessage?(error)
             }
@@ -113,7 +113,9 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
     
     @objc private func executeRequest() {
         guard let pairs = dataSource?.stringPairs, !pairs.isEmpty else { return }
-        getExchangeRates(for: pairs)
+        getExchangeRates(for: pairs) {
+            self.dataSource.didUpdateRates?()
+        }
     }
 }
 
@@ -132,7 +134,9 @@ extension HomeScreenViewModel {
         currencyPickerViewModel.didDismissWithCurrencies = { [weak self] currencies in
             guard let self = self else { return }
             self.dataSource.stringPairs.append("\(currencies[0])\(currencies[1])")
-            self.getExchangeRates(for: self.dataSource.stringPairs)
+            self.getExchangeRates(for: self.dataSource.stringPairs, completion: {
+                self.dataSource.didAddNewCurrencyPair?()
+            })
         }
         
         // ViewController

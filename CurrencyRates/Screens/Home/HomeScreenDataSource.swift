@@ -13,8 +13,14 @@ class HomeScreenDataSource: NSObject {
     
     // MARK: - Public properties
     
-    /// To call when data gets updated to reload tableview
-    var didUpdateData: (() -> Void)?
+    /// Callback for loading initial data on app start
+    var didLoadInitialData: (() -> Void)?
+    
+    /// Callback for when user adds a new currency pair
+    var didAddNewCurrencyPair: (() -> Void)?
+    
+    /// Callback for updating rates after timer has sent request
+    var didUpdateRates: (() -> Void)?
     
     /// Pauses the requests for rates
     var shouldStopFetchingRates: (() -> Void)?
@@ -23,14 +29,14 @@ class HomeScreenDataSource: NSObject {
     var shouldContinueFetchingRates: (() -> Void)?
     
     /// Currency pairs currently showed on home screen
-    var currencyPairs = [CurrencyPair]()
+    var currencyPairs = [CurrencyPair]() 
     
     /// Currency pairs currently showed on home screen in string format ie. ["GBPEUR", "EURGBP"]
     
     var stringPairs: [String] {
         didSet {
             defaults.set(stringPairs, forKey: "stringArray")
-            didUpdateData?()
+            didLoadInitialData?()
         }
     }
     
@@ -42,13 +48,6 @@ class HomeScreenDataSource: NSObject {
         self.defaults = defaults
         self.stringPairs = defaults.array(forKey: "stringArray") as? [String] ?? [String]()
     }
-    
-    // MARK: - Private methods
-    
-    private func updateStringPairArray() {
-        
-    }
-    
 }
 
 // MARK: - Extensions 
@@ -75,12 +74,15 @@ extension HomeScreenDataSource: UITableViewDelegate, UITableViewDataSource {
         shouldStopFetchingRates?()
     }
     
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        shouldContinueFetchingRates?()
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             currencyPairs.remove(at: indexPath.row)
             stringPairs.remove(at: indexPath.row)
             shouldContinueFetchingRates?()
-            didUpdateData?()
         }
     }
 }
