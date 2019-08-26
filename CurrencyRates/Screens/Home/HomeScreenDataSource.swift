@@ -13,10 +13,13 @@ class HomeScreenDataSource: NSObject {
     
     // MARK: - Public properties
     
+    /// Callback for loading initial data on app start
     var didLoadInitialData: (() -> Void)?
     
+    /// Callback for when user adds a new currency pair
     var didAddNewCurrencyPair: (() -> Void)?
     
+    /// Callback for updating rates after timer has sent request
     var didUpdateRates: (() -> Void)?
     
     /// Pauses the requests for rates
@@ -45,13 +48,6 @@ class HomeScreenDataSource: NSObject {
         self.defaults = defaults
         self.stringPairs = defaults.array(forKey: "stringArray") as? [String] ?? [String]()
     }
-    
-    // MARK: - Private methods
-    
-    private func updateStringPairArray() {
-        
-    }
-    
 }
 
 // MARK: - Extensions 

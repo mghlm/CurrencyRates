@@ -116,7 +116,7 @@ final class HomeScreenViewController: UIViewController {
         viewModel.dataSource.didAddNewCurrencyPair = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let newIndexPath = IndexPath(row: self.viewModel.dataSource.currencyPairs.count - 1, section: 0)
+                let newIndexPath = IndexPath(row: self.viewModel.dataSource.stringPairs.count - 1, section: 0)
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }

@@ -65,7 +65,6 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
             case .success(let currencyRates):
                 self.dataSource.currencyPairs = self.getSortedCurrencyPairs(from: currencyRates)
                 completion()
-//                self.dataSource.didLoadInitialData?()
             case .failure(let error):
                 self.errorMessage?(error)
             }
@@ -117,7 +116,6 @@ final class HomeScreenViewModel: HomeScreenViewModelType {
         getExchangeRates(for: pairs) {
             self.dataSource.didUpdateRates?()
         }
-//        getExchangeRates(for: pairs)
     }
 }
 

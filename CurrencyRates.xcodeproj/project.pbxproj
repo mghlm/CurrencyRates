@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CC2CE50822FF101900247E26 /* WeakTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2CE50722FF101900247E26 /* WeakTimer.swift */; };
+		CC2CE5182314350E00247E26 /* Springboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2CE5172314350E00247E26 /* Springboard.swift */; };
 		CC91F80322EB31CF007CC789 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F80222EB31CF007CC789 /* AppDelegate.swift */; };
 		CC91F80522EB31CF007CC789 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC91F80422EB31CF007CC789 /* HomeScreenViewController.swift */; };
 		CC91F80822EB31CF007CC789 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC91F80622EB31CF007CC789 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		CC2CE50722FF101900247E26 /* WeakTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakTimer.swift; sourceTree = "<group>"; };
+		CC2CE5172314350E00247E26 /* Springboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Springboard.swift; sourceTree = "<group>"; };
 		CC91F7FF22EB31CF007CC789 /* CurrencyRates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyRates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC91F80222EB31CF007CC789 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC91F80422EB31CF007CC789 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				CC91F88822F1CF3F007CC789 /* Screens */,
 				CC91F82222EB31D0007CC789 /* CurrencyRatesUITests.swift */,
 				CC91F82422EB31D0007CC789 /* Info.plist */,
+				CC2CE5172314350E00247E26 /* Springboard.swift */,
 			);
 			path = CurrencyRatesUITests;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				CC91F88C22F1D139007CC789 /* CurrencyPickerUIScreen.swift in Sources */,
 				CC91F88A22F1CF50007CC789 /* HomeUIScreen.swift in Sources */,
 				CC91F82322EB31D0007CC789 /* CurrencyRatesUITests.swift in Sources */,
+				CC2CE5182314350E00247E26 /* Springboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
